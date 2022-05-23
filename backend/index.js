@@ -1,6 +1,8 @@
-import app from "./server.js";
-import mongodb from "mongodb";
-import dotenv from "dotenv";
+import app from "./server.js"
+import mongodb from "mongodb"
+import dotenv from "dotenv"
+
+import TasksDAO from "./dao/tasksDAO.js"
 dotenv.config()
 const MongoClient = mongodb.MongoClient
 
@@ -19,6 +21,7 @@ MongoClient.connect(
     process.exit(1)
 })
 .then(async client => {
+    await TasksDAO.injectDB(client)
     app.listen(port, () => {
         console.log(`listening on port ${port}`)
     })
