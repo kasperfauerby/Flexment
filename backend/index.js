@@ -3,6 +3,7 @@ import mongodb from "mongodb"
 import dotenv from "dotenv"
 
 import TasksDAO from "./dao/tasksDAO.js"
+import ReviewsDAO from "./dao/reviewsDAO.js"
 dotenv.config()
 const MongoClient = mongodb.MongoClient
 
@@ -12,7 +13,6 @@ MongoClient.connect(
     process.env.DB_URI, 
     {
         wtimeoutMS: 2500
-    
     }
 )
 
@@ -22,6 +22,7 @@ MongoClient.connect(
 })
 .then(async client => {
     await TasksDAO.injectDB(client)
+    await ReviewsDAO.injectDB(client)
     app.listen(port, () => {
         console.log(`listening on port ${port}`)
     })

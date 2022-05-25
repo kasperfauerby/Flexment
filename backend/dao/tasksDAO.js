@@ -58,7 +58,7 @@ export default class TaskDAO {
       return { tasksList: [], totalNumTasks: 0 }
     }
   }
-  static async getTasksByID(id) {
+  static async getTaskByID(id) {
     try {
       const pipeline = [
         {
@@ -105,7 +105,7 @@ export default class TaskDAO {
   static async getCuisines() {
     let cuisines = []
     try {
-      cuisines = await tasks.distinct("cuisine")
+      cuisines = await tasks.distinct("cuisine") // henter alle cuisines. 'distinct' betyder at det kun bliver vist en gang (tasks kan have samme cuisine)
       return cuisines
     } catch (e) {
       console.error(`Unable to get cuisines, ${e}`)
