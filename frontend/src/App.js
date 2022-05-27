@@ -8,7 +8,7 @@ import TasksList from "./components/tasks-List";
 import Login from "./components/login";
 
 function App() {
-  const [ user, setUser] = React.useState(null);
+  const [ user, setUser] = React.useState(null); // user state variable
 
   async function login(user = null) {
     setUser(user);
