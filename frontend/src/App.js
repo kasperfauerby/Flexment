@@ -1,6 +1,6 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
-//import "bootstrap/dist/css/bootstrap.min.css";
+import { Switch, Route, Link } from "react-router-dom"; // VIGTIGT FOR AT DET VIRKER: npm install react-router-dom@5
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import AddReview from "./components/add-review";
 import Task from "./components/tasks";
@@ -46,7 +46,7 @@ function App() {
       </nav>
 
       <div className="container mt-3">
-        <Routes>
+        <Switch>
           <Route exact path={["/", "/tasks"]} component={TasksList} />
           <Route 
             path="/tasks/:id/review"
@@ -66,7 +66,7 @@ function App() {
               <Login {...props} login={login} />
             )}
           />
-        </Routes>
+        </Switch>
       </div>
     </div>
   );
