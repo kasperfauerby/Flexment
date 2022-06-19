@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.route("/").get(TasksCtrl.apiGetTasks);
 router.route("/id/:id").get(TasksCtrl.apiGetTaskById);
-router.route("/cuisines").get(TasksCtrl.apiGetTaskCuisines);
+router.route("/languages").get(TasksCtrl.apiGetTaskLanguages);
 
 router
   .route("/review")

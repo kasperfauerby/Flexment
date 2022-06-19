@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route, Link } from "react-router-dom"; // VIGTIGT FOR AT DET VIRKER: npm install react-router-dom@5
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./custom.scss";
 
 import AddReview from "./components/add-review";
 import Task from "./components/tasks";
@@ -20,9 +21,9 @@ function App() {
 
   return (
     <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <nav class="navbar navbar-expand navbar-dark bg-dark">
         <a href="/tasks" className="navbar-brand">
-          Task Reviews
+          FLEXMENT
         </a>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">

@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import TaskDataService from "../services/task";
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const TasksList = props => {
   const [tasks, setTasks] = useState([]);
   const [searchName, setSearchName ] = useState("");
-  const [searchZip, setSearchZip ] = useState("");
-  const [searchCuisine, setSearchCuisine ] = useState("");
-  const [cuisines, setCuisines] = useState(["All Cuisines"]);
+  const [searchCompany, setSearchCompany ] = useState("");
+  const [searchLanguage, setSearchLanguage ] = useState("");
+  const [p_languages, setLanguages] = useState(["All Languages"]);
 
   useEffect(() => {     // Tell component to do something after render
     retrieveTasks();
-    retrieveCuisines();
+    retrieveLanguages();
   }, []);
 
   const onChangeSearchName = e => {
@@ -19,14 +20,14 @@ const TasksList = props => {
     setSearchName(searchName);
   };
 
-  const onChangeSearchZip = e => {
-    const searchZip = e.target.value;
-    setSearchZip(searchZip);
+  const onChangeSearchCompany = e => {
+    const searchCompany = e.target.value;
+    setSearchCompany(searchCompany);
   };
 
-  const onChangeSearchCuisine = e => {
-    const searchCuisine = e.target.value;
-    setSearchCuisine(searchCuisine);
+  const onChangeSearchLanguage = e => {
+    const searchLanguage = e.target.value;
+    setSearchLanguage(searchLanguage);
     
   };
 
@@ -42,11 +43,11 @@ const TasksList = props => {
       });
   };
 
-  const retrieveCuisines = () => {
-    TaskDataService.getCuisines()
+  const retrieveLanguages = () => {
+    TaskDataService.getLanguages()
       .then(response => {
         console.log(response.data);
-        setCuisines(["All Cuisines"].concat(response.data));
+        setLanguages(["All Languages"].concat(response.data));
         
       })
       .catch(e => {
@@ -73,15 +74,15 @@ const TasksList = props => {
     find(searchName, "name")
   };
 
-  const findByZip = () => {
-    find(searchZip, "zipcode")
+  const findByCompany = () => {
+    find(searchCompany, "company")
   };
 
-  const findByCuisine = () => {
-    if (searchCuisine === "All Cuisines") {
+  const findByLanguage = () => {
+    if (searchLanguage === "All Languages") {
       refreshList();
     } else {
-      find(searchCuisine, "cuisine")
+      find(searchLanguage, "p_language")
     }
   };
 
@@ -110,15 +111,15 @@ const TasksList = props => {
           <input
             type="text"
             className="form-control"
-            placeholder="Search by zip"
-            value={searchZip}
-            onChange={onChangeSearchZip}
+            placeholder="Search by company"
+            value={searchCompany}
+            onChange={onChangeSearchCompany}
           />
           <div className="input-group-append">
             <button
               className="btn btn-outline-secondary"
               type="button"
-              onClick={findByZip}
+              onClick={findByCompany}
             >
               Search
             </button>
@@ -126,10 +127,10 @@ const TasksList = props => {
         </div>
         <div className="input-group col-lg-4">
 
-          <select onChange={onChangeSearchCuisine}>
-             {cuisines.map(cuisine => {
+          <select onChange={onChangeSearchLanguage}>
+             {p_languages.map(p_language => {
                return (
-                 <option value={cuisine}> {cuisine.substr(0, 20)} </option>
+                 <option value={p_language}> {p_language.substr(0, 20)} </option>
                )
              })}
           </select>
@@ -137,7 +138,7 @@ const TasksList = props => {
             <button
               className="btn btn-outline-secondary"
               type="button"
-              onClick={findByCuisine}
+              onClick={findByLanguage}
             >
               Search
             </button>
@@ -147,21 +148,20 @@ const TasksList = props => {
       </div>
       <div className="row">
         {tasks.map((task) => {
-          const address = `${task.address.building} ${task.address.street}, ${task.address.zipcode}`;
           return (
             <div className="col-lg-4 pb-1">
               <div className="card">
                 <div className="card-body">
                   <h5 className="card-title">{task.name}</h5>
                   <p className="card-text">
-                    <strong>Cuisine: </strong>{task.cuisine}<br/>
-                    <strong>Address: </strong>{address}
+                    <strong>Programming Language: </strong>{task.p_language}<br/>
+                    <strong>Company: </strong>{task.company}
                   </p>
                   <div className="row">
-                  <Link to={"/tasks/"+task._id} className="btn btn-primary col-lg-5 mx-1 mb-1">
-                    View Reviews
+                  <Link to={"/tasks/"+task._id} className="btn btn-warning col-lg-11 mx-1 mb-1">
+                    View Task
                   </Link>
-                  <a target="_blank" href={"https://www.google.com/maps/place/" + address} className="btn btn-primary col-lg-5 mx-1 mb-1">View Map</a>
+                  {/* <div className="btn btn-primary col-lg-5 mx-1 mb-1">View Map</div> */}
                   </div>
                 </div>
               </div>

@@ -2,15 +2,15 @@ import http from "../http-common";
 
 class TaskDataService {
     getAll(page = 0) {
-        return http.get(`tasks?page=${page}`);
+        return http.get(`?page=${page}`);
       }
     
       get(id) {
-        return http.get(`/task?id=${id}`);
+        return http.get(`/id/${id}`);
       }
     
       find(query, by = "name", page = 0) {
-        return http.get(`tasks?${by}=${query}&page=${page}`);
+        return http.get(`?${by}=${query}&page=${page}`);
       } 
     
       createReview(data) {
@@ -25,8 +25,8 @@ class TaskDataService {
         return http.delete(`/review-delete?id=${id}`, {data:{user_id: userId}});
       }
     
-      getCuisines(id) {
-        return http.get(`/cuisines`);
+      getLanguages(id) {
+        return http.get(`/languages`);
       }
     
     }

@@ -6,10 +6,10 @@ export default class TasksController {
     const page = req.query.page ? parseInt(req.query.page, 10) : 0
 
     let filters = {}
-    if (req.query.cuisine) {
-      filters.cuisine = req.query.cuisine
-    } else if (req.query.zipcode) {
-      filters.zipcode = req.query.zipcode
+    if (req.query.language) {
+      filters.language = req.query.language
+    } else if (req.query.company) {
+      filters.company = req.query.company
     } else if (req.query.name) {
       filters.name = req.query.name
     }
@@ -44,10 +44,10 @@ export default class TasksController {
     }
   }
 
-  static async apiGetTaskCuisines(req, res, next) {
+  static async apiGetTaskLanguages(req, res, next) {
     try {
-      let cuisines = await TasksDAO.getCuisines()
-      res.json(cuisines)
+      let languages = await TasksDAO.getLanguages()
+      res.json(languages)
     } catch (e) {
       console.log(`api, ${e}`)
       res.status(500).json({ error: e })

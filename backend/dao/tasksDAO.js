@@ -27,10 +27,10 @@ export default class TaskDAO {
     if (filters) { 
       if ("name" in filters) {
         query = { $text: { $search: filters["name"] } } // Text search
-      } else if ("cuisine" in filters) {
-        query = { "cuisine": { $eq: filters["cuisine"] } } // Categori search
-      } else if ("zipcode" in filters) {
-        query = { "address.zipcode": { $eq: filters["zipcode"] } }
+      } else if ("p_language" in filters) {
+        query = { "p_language": { $eq: filters["p_language"] } } // Categori search
+      } else if ("company" in filters) {
+        query = { "company": { $eq: filters["company"] } }
       }
     }
 
@@ -102,14 +102,14 @@ export default class TaskDAO {
     }
   }
 
-  static async getCuisines() {
-    let cuisines = []
+  static async getLanguages() {
+    let languages = []
     try {
-      cuisines = await tasks.distinct("cuisine") // henter alle cuisines. 'distinct' betyder at det kun bliver vist en gang (tasks kan have samme cuisine)
-      return cuisines
+      languages = await tasks.distinct("p_language") // henter alle languages. 'distinct' betyder at det kun bliver vist en gang (tasks kan have samme language)
+      return languages
     } catch (e) {
-      console.error(`Unable to get cuisines, ${e}`)
-      return cuisines
+      console.error(`Unable to get languages, ${e}`)
+      return languages
     }
   }
 }
