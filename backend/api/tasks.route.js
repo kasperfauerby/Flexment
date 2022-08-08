@@ -4,9 +4,15 @@ import ReviewsCtrl from "./reviews.controller.js"
 
 const router = express.Router();
 
-router.route("/").get(TasksCtrl.apiGetTasks);
 router.route("/id/:id").get(TasksCtrl.apiGetTaskById);
 router.route("/languages").get(TasksCtrl.apiGetTaskLanguages);
+
+router
+  .route("/").get(TasksCtrl.apiGetTasks)
+  .post(TasksCtrl.apiPostTask)
+  .put(TasksCtrl.apiPutTask)
+  .delete(TasksCtrl.apiDeleteTask);
+
 
 router
   .route("/review")

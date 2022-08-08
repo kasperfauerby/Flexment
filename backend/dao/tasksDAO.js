@@ -1,14 +1,14 @@
-import mongodb from "mongodb"
-const ObjectId = mongodb.ObjectId
-let tasks
+import mongodb from "mongodb";
+const ObjectId = mongodb.ObjectId;
+let tasks;
 
 export default class TaskDAO {
   static async injectDB(conn) {
     if (tasks) {
-      return
+      return;
     }
     try {
-      tasks = await conn.db(process.env.TASK_NS).collection("tasks")
+      tasks = await conn.db(process.env.TASK_NS).collection("tasks");
     } catch (e) {
       console.error(
         `Unable to establish a collection handle in taskDAO: ${e}`,
@@ -22,15 +22,15 @@ export default class TaskDAO {
     tasksPerPage = 20,
   } = {}) {
     let query
-
+    // query with mongodb
     // Database search filters
     if (filters) { 
       if ("name" in filters) {
-        query = { $text: { $search: filters["name"] } } // Text search
+        query = { $text: { $search: filters["name"] } } // Text search - TODO lave til task
       } else if ("p_language" in filters) {
         query = { "p_language": { $eq: filters["p_language"] } } // Categori search
       } else if ("company" in filters) {
-        query = { "company": { $eq: filters["company"] } }
+        query = { "company": { $eq: filters["company"] } } // Company search
       }
     }
 
@@ -38,7 +38,7 @@ export default class TaskDAO {
     
     try {
       cursor = await tasks
-        .find(query)        // Return tasks from database
+        .find(query)    // Return tasks from database - If query not filled -> find all
     } catch (e) {
       console.error(`Unable to issue find command, ${e}`)
       return { taskList: [], totalNumTasks: 0 }
@@ -112,5 +112,67 @@ export default class TaskDAO {
       return languages
     }
   }
-}
 
+  static async addTask(taskName, taskDescription, taskSubjectArea, programmingLanguage, skillLevel, imagePath, company, user, date) {
+    try {
+      const taskDoc = { taskName: taskName,
+          taskDescription: taskDescription,
+          taskSubjectArea: taskSubjectArea,
+          programmingLanguage: programmingLanguage,
+          skillLevel: skillLevel,
+          imagePath: imagePath,
+          companyInfo: {
+            companyName: company.companyName,
+            address: company.address
+          },
+          userInfo: {
+            name: user.name,
+            user_id: user._id,
+          },
+          date: date
+      }
+      return await tasks.insertOne(taskDoc)
+    } catch (e) {
+      console.error(`Unable to post review: ${e}`)
+      return { error: e }
+    }
+  }
+
+  static async updateTask(taskId, userId, taskName, taskDescription, taskSubjectArea, programmingLanguage, skillLevel, imagePath, company, date) {
+    try {
+      const updateTaskResponse = await tasks.updateOne(
+        { user_id: userId, _id: ObjectId(taskId)},
+        { $set: { 
+          taskName: taskName, 
+          taskDescription: taskDescription, 
+          taskSubjectArea: taskSubjectArea,
+          programmingLanguage: programmingLanguage,
+          skillLevel: skillLevel,
+          imagePath: imagePath,
+          company: company,
+          date: date  } },
+      )
+      
+      return updateTaskResponse
+    } catch (e) {
+      console.error(`Unable to update task: ${e}`)
+      return { error: e }
+    }
+  }
+
+  static async deleteTask(taskId, userId) {
+
+    try {
+      const deleteTaskResponse = await reviews.deleteOne({
+        _id: ObjectId(reviewId),
+        user_id: userId,
+      })
+
+      return deleteTaskResponse
+    } catch (e) {
+      console.error(`Unable to delete review: ${e}`)
+      return { error: e }
+    }
+  }
+
+}

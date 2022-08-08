@@ -9,14 +9,14 @@ import TasksList from "./components/tasks-List";
 import Login from "./components/login";
 
 function App() {
-  const [ user, setUser] = React.useState(null); // user state variable
+  const [user, setUser] = React.useState(null); // user state variable
 
   async function login(user = null) {
     setUser(user);
   }
 
   async function logout () {
-    setUser(null);
+    setUser(null); // sets user to null when loggin out -> Improved login system needed (ex.Google signin)
   }
 
   return (

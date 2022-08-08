@@ -17,7 +17,8 @@ export default class ReviewsDAO {
 
   static async addReview(taskId, user, review, date) {
     try {
-      const reviewDoc = { name: user.name,
+      const reviewDoc = { 
+          name: user.name,
           user_id: user._id,
           date: date,
           text: review,
@@ -36,7 +37,7 @@ export default class ReviewsDAO {
         { user_id: userId, _id: ObjectId(reviewId)},
         { $set: { text: text, date: date  } },
       )
-
+      
       return updateResponse
     } catch (e) {
       console.error(`Unable to update review: ${e}`)
