@@ -10,3 +10,13 @@ export const getTasks = () => async (dispatch) => {
         console.log(error.message);
     }
 }
+
+export const createTask = (task) => async (dispatch) => {
+    try {
+        const { data } = await api.createTask(task);
+
+        dispatch({ type: 'CREATE', payload: data })
+    } catch (error) {
+        console.log(error);
+    }
+}

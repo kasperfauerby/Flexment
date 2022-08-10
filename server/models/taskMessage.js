@@ -3,14 +3,12 @@ import mongoose from "mongoose";
 const taskSchema = mongoose.Schema({
     taskName: String,
     taskDescription: String,
-    taskSubjectArea: String,
     programmingLanguage: String,
-    skillLevel: String,
     companyInfo: {
         companyName: String,
         companyAddress: String
     },
-    message: String,
+    taskDescription: String,
     creator: String,
     tags: [String],
     selectedFile: String,
@@ -21,7 +19,7 @@ const taskSchema = mongoose.Schema({
     createdAt: {
         type: Date,
         default: new Date()
-    }
+    },
 });
 
 const TaskMessage = mongoose.model('TaskMessage', taskSchema);

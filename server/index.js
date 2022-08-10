@@ -7,11 +7,11 @@ import taskRoutes from './routes/tasks.js';
 
 const app = express();
 
-app.use('/tasks', taskRoutes);
-
 app.use(bodyParser.json({ limit: "30mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors());
+
+app.use('/tasks', taskRoutes);
 
 const CONNECTION_URL = 'mongodb+srv://rasm:sOHffGAq1uS1qP35@hovedopgavecluster.ypexk.mongodb.net/FlexmentDB?retryWrites=true&w=majority';
 const PORT = process.env.PORT || 5000;

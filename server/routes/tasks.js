@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getTasks, createPost } from '../controllers/tasks.js';
+import { getTasks, createTask } from '../controllers/tasks.js';
 
 const router = express.Router();
 
