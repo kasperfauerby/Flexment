@@ -4,12 +4,14 @@ import ThumpUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete'
 import moment from 'moment';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
+import useStyles from './styles';
 import { useDispatch } from 'react-redux';
 
-import useStyles from './styles';
+import { deleteTask, likeTask } from '../../../actions/tasks';
     
 const Task = ({ task, setCurrentId }) => {
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     return (
         <Card className={classes.card}>
@@ -24,27 +26,25 @@ const Task = ({ task, setCurrentId }) => {
                 </Button>
             </div>
             <div className={classes.details}>
-                <Typography variant="body4" color="textSecondary">{task.tags.map((tag) => `#${tag}`)}</Typography>
+                <Typography variant="body2" color="textSecondary" component="h2">{task.programmingLanguage.map((programmingLanguage) => `#${programmingLanguage} `)}</Typography>
             </div>
             <div className={classes.details}>
-                <Typography variant="body1" color="textSecondary">{task.taskDescription}</Typography>
+                <Typography variant="body2" color="textSecondary" component="p">{task.taskDescription}</Typography>
             </div>
             <CardContent>
                 <Typography className={classes.title} variant="h5" gutterBottom></Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                <Button size="small" color="primary" onClick={ () => {} }>
+                <Button size="small" color="primary" onClick={ () => dispatch(likeTask(task._id)) }>
                     <ThumpUpAltIcon fontSize="small" />
-                    Like
+                    &nbsp; Like &nbsp;
                     {task.likeCount}
                 </Button>
-                <Button size="small" color="primary" onClick={ () => {} }>
+                <Button size="small" color="primary" onClick={ () => dispatch(deleteTask(task._id)) }>
                     <DeleteIcon fontSize="small" />
-                    Delete
+                    &nbsp; Delete &nbsp;
                 </Button>
             </CardActions>
-
-
         </Card>
     );
 }

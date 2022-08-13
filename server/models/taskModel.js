@@ -3,14 +3,14 @@ import mongoose from "mongoose";
 const taskSchema = mongoose.Schema({
     taskName: String,
     taskDescription: String,
-    programmingLanguage: String,
+    //programmingLanguage: String,
     companyInfo: {
         companyName: String,
         companyAddress: String
     },
     taskDescription: String,
     creator: String,
-    tags: [String],
+    programmingLanguage: [String],
     selectedFile: String,
     likeCount: {
         type: Number,
@@ -22,6 +22,6 @@ const taskSchema = mongoose.Schema({
     },
 });
 
-const TaskMessage = mongoose.model('TaskMessage', taskSchema);
+const TaskModel = mongoose.model('Tasks', taskSchema);
 
-export default TaskMessage;
+export default TaskModel;
