@@ -16,7 +16,7 @@ export const getTasks = async (req, res) => {
 export const createTask = async (req, res) => {
     const task = req.body;
 
-    const newTask = new TaskModel(task);
+    const newTask = new TaskModel({ ...task, creator: req.userId, createdAt: new Date().toISOString() });
 
     try {
         await newTask.save();
@@ -52,10 +52,21 @@ export const deleteTask = async (req, res) => {
 export const likeTask = async (req, res) => {
     const { id } = req.params;
 
+    if(!req.userId) return res.json({ message: 'User not authenticated'});
+
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No task with that id');
 
     const task = await  TaskModel.findById(id);
-    const updatedTask = await TaskModel.findByIdAndUpdate(id, { likeCount: task.likeCount + 1 }, { new: true });
+
+    const index = task.likes.findIndex((id) => id === String(req.userId));
+
+    if(index === -1){
+        task.likes.push(req.userId);
+    } else {
+        task.likes = task.likes.filter((id) => id !== String(req.userId));
+    }
+
+    const updatedTask = await TaskModel.findByIdAndUpdate(id, task, { new: true });
 
     res.json(updatedTask)
 }

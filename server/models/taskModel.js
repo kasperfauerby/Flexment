@@ -3,18 +3,16 @@ import mongoose from "mongoose";
 const taskSchema = mongoose.Schema({
     taskName: String,
     taskDescription: String,
-    //programmingLanguage: String,
-    companyInfo: {
-        companyName: String,
-        companyAddress: String
-    },
+    companyName: String,
+    //companyAdresse: String,
     taskDescription: String,
+    name: String,
     creator: String,
     programmingLanguage: [String],
     selectedFile: String,
-    likeCount: {
-        type: Number,
-        default: 0
+    likes: {
+        type: [String],
+        default: []
     },
     createdAt: {
         type: Date,
