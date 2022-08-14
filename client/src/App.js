@@ -1,41 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
-
-import { getTasks } from './actions/tasks';
-import Tasks from './components/Tasks/Tasks';
-import Form from './components/Form/Form';
-import flexment from './images/FlexmentLogo.png'
-import useStyles from './styles';
+import React from 'react';
+import { Container } from '@material-ui/core';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+ 
+import Home from './components/Home/Home';
+import Navbar from './components/Navbar/Navbar';
+import Auth from './components/Auth/Auth';
 
 const App = () => {
-    const [currentId, setCurrentId] = useState(null);
-    const classes = useStyles();
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getTasks());
-    }, [currentId, dispatch]);
 
     return (
-        <Container maxwidth="lg">
-            <AppBar className={classes.appBar} position="static" color="inherit">
-                <Typography className={classes.heading} variant="h2" align="center">Flexment</Typography>
-                <img className={classes.image} src={flexment} alt="flexment" height="60"></img>
-            </AppBar>
-            <Grow in>
-                <Container>
-                    <Grid className={classes.mainContainer} container justify="space-between" alignItems="stretch" spacing={3}>
-                        <Grid item xs={12} sm={7}>
-                            <Tasks setCurrentId={setCurrentId} /> 
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <Form currentId={currentId} setCurrentId={setCurrentId} /> 
-                        </Grid>
-                    </Grid>
+        <GoogleOAuthProvider clientId='639999822443-lgeeojeqb6s5lpieqp2epp6llfj5oq9s.apps.googleusercontent.com'>
+            <BrowserRouter>
+                <Container maxwidth="lg">
+                    <Navbar />
+                    <Switch>
+                        <Route path="/" exact component={Home}/>
+                        <Route path="/auth" exact component={Auth}/>
+                    </Switch>
                 </Container>
-            </Grow>
-        </Container>
+            </BrowserRouter>
+        </GoogleOAuthProvider>
     );
 }
 
