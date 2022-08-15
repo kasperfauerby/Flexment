@@ -6,11 +6,13 @@ import Task from './Task/Task'
 import useStyles from './styles';
     
 const Tasks = ({ setCurrentId }) => {
-    const { tasks } = useSelector((state) => state.tasks);
+    const { tasks, isLoading } = useSelector((state) => state.tasks);
     const classes = useStyles();
     
+    if(!tasks.length && !isLoading) return 'No Tasks'
+
     return (
-        !tasks?.length ? <CircularProgress /> : (
+        isLoading ? <CircularProgress /> : (
             <Grid className={classes.container} container alignItems="stretch" spacing={3}>
                 {tasks.map((task) => (
                     <Grid key={task._id} item xs={12} sm={12} md={6} lg={3}>
