@@ -1,4 +1,4 @@
-import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, START_LOADING, END_LOADING } from '../constants/actionTypes.js';
+import { FETCH_ALL, FETCH_TASK, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, START_LOADING, END_LOADING } from '../constants/actionTypes.js';
 
 export default (state = { isLoading: true, tasks: [] }, action) => {
     switch (action.type) {
@@ -7,19 +7,15 @@ export default (state = { isLoading: true, tasks: [] }, action) => {
         case END_LOADING:
             return { ...state, isLoading: false }
         case FETCH_ALL:
-            return {
-                ...state,
-                tasks: action.payload.data,
-                currentPage: action.payload.currentPage,
-                numberOfPages: action.payload.numberOfPages,
-            };
+            return { ...state, tasks: action.payload.data, currentPage: action.payload.currentPage, numberOfPages: action.payload.numberOfPages};
+        case FETCH_TASK:
+            return { ...state, task: action.payload};
         case FETCH_BY_SEARCH:
-            return {
-                ...state,
-                tasks: action.payload
-            };
+            return { ...state, tasks: action.payload};
         case CREATE:
-            return { ...state, tasks: [ ...state.tasks, action.payload]};
+            const tasks =  [action.payload, ...state.tasks]
+            tasks.pop()
+            return { ...state, tasks};
         case UPDATE:
             return { ...state, tasks: state.tasks.map((task) => (task._id === action.payload._id ? action.payload : task))};
         case DELETE:

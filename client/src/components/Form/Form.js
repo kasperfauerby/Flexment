@@ -8,10 +8,9 @@ import { createTask, updateTask } from "../../actions/tasks";
     
 const Form = ({ currentId, setCurrentId }) => {
     const [taskData, setTaskData] = useState({
-        taskName: '', companyName: '',
-        taskDescription: '', programmingLanguages: [], selectedFile: ''
+        taskName: '', companyName: '', taskDescription: '', programmingLanguages: [], selectedFile: ''
     });
-    const task = useSelector((state) => currentId ? state.tasks.find((task) => task._id === currentId) : null);
+    const task = useSelector((state) => currentId ? state.tasks.tasks.find((task) => task._id === currentId) : null);
     const classes = useStyles();
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -19,7 +18,7 @@ const Form = ({ currentId, setCurrentId }) => {
     useEffect(() => {
         if (task) setTaskData(task);
     }, [task])
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -48,7 +47,7 @@ const Form = ({ currentId, setCurrentId }) => {
     }
 
     return (
-        <Paper className = {classes.paper}>
+        <Paper className = {classes.paper} elevation={6}>
             <form autoComplete = 'off' noValidate className={`${classes.root}, ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant='h5'>{currentId ? 'Rediger' : 'Opret'} opgave</Typography>
                 <TextField name = 'taskName' variant = 'outlined' label = 'Titel' fullWidth value={taskData.taskName} onChange = {(e) => setTaskData({ ... taskData, taskName: e.target.value })}/>

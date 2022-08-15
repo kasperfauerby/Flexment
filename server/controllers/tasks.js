@@ -18,6 +18,20 @@ export const getTasks = async (req, res) => {
     }
 }
 
+export const getTask = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const task = await TaskModel.findById(id);
+
+        res.status(200).json(task)
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+        console.log(error)
+        console.log(req.params)
+    }
+}
+
 export const getTasksBySearch = async (req, res) => {
     const { searchQuery, programmingLanguages } = req.query;
 

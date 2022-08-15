@@ -4,7 +4,6 @@ const taskSchema = mongoose.Schema({
     taskName: String,
     taskDescription: String,
     companyName: String,
-    //companyAdresse: String,
     name: String,
     creator: String,
     programmingLanguages: [String],
