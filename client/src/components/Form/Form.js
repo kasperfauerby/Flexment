@@ -9,7 +9,7 @@ import { createTask, updateTask } from "../../actions/tasks";
 const Form = ({ currentId, setCurrentId }) => {
     const [taskData, setTaskData] = useState({
         taskName: '', companyName: '',
-        taskDescription: '', programmingLanguage: '', selectedFile: ''
+        taskDescription: '', programmingLanguages: [], selectedFile: ''
     });
     const task = useSelector((state) => currentId ? state.tasks.find((task) => task._id === currentId) : null);
     const classes = useStyles();
@@ -34,7 +34,7 @@ const Form = ({ currentId, setCurrentId }) => {
     const clear = () => {
         setCurrentId(null);
         setTaskData({taskName: '', companyName: '',
-        taskDescription: '', programmingLanguage: '', selectedFile: ''});
+        taskDescription: '', programmingLanguages: [], selectedFile: ''});
     }
 
     if(!user?.result?.name){
@@ -54,8 +54,8 @@ const Form = ({ currentId, setCurrentId }) => {
                 <TextField name = 'taskName' variant = 'outlined' label = 'Titel' fullWidth value={taskData.taskName} onChange = {(e) => setTaskData({ ... taskData, taskName: e.target.value })}/>
                 <TextField name = 'companyName' variant = 'outlined' label = 'Firma' fullWidth value = {taskData.companyName} onChange = {(e) => setTaskData({ ... taskData, companyName: e.target.value })}/>
                 {/* <TextField name = 'companyAddress' variant = 'outlined' label = 'Adresse' fullWidth value = {taskData.companyAddress} onChange = {(e) => setTaskData({ ... taskData, companyAddress: e.target.value })}/> */}
-                <TextField name = 'taskDescription' variant = 'outlined' label = 'Beskrivelse' fullWidth multiline rows={5} value = {taskData.taskDescription} onChange = {(e) => setTaskData({ ... taskData, taskDescription: e.target.value })}/>
-                <TextField name = 'programmingLanguage' variant = 'outlined' label = 'Sprog og/eller teknologi (komma seperaret)' fullWidth value = {taskData.programmingLanguage} onChange = {(e) => setTaskData({ ...taskData, programmingLanguage: e.target.value.split(',') })}/>
+                <TextField name = 'taskDescription' variant = 'outlined' label = 'Beskrivelse' fullWidth multiline minRows={5} value = {taskData.taskDescription} onChange = {(e) => setTaskData({ ... taskData, taskDescription: e.target.value })}/>
+                <TextField name = 'programmingLanguages' variant = 'outlined' label = 'Teknologier (komma seperaret)' fullWidth value = {taskData.programmingLanguages} onChange = {(e) => setTaskData({ ...taskData, programmingLanguages: e.target.value.split(',') })}/>
                 <div className={classes.fileInput}><FileBase type='File' multiple={false} onDone={({base64}) => setTaskData({ ...taskData, selectedFile: base64 })}></FileBase></div>
                 <Button className={classes.buttonSubmit} variant='contained' color='primary' size='large' type='submit' fullWidth>Tilføj</Button>
                 <Button variant='contained' color='secondary' size='small' onClick={clear} fullWidth>Clear</Button>

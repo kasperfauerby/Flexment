@@ -1,16 +1,26 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../constants/actionTypes.js';
+import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE } from '../constants/actionTypes.js';
 
-export default (tasks = [], action) => {
+export default (state = [], action) => {
     switch (action.type) {
         case FETCH_ALL:
-            return action.payload;
+            return {
+                ...state,
+                tasks: action.payload.data,
+                currentPage: action.payload.currentPage,
+                numberOfPages: action.payload.numberOfPages,
+            };
+        case FETCH_BY_SEARCH:
+            return {
+                ...state,
+                tasks: action.payload
+            };
         case CREATE:
-            return [ ...tasks, action.payload];
+            return { ...state, tasks:[ ...state.tasks, action.payload]};
         case UPDATE:
-            return tasks.map((task) => (task._id === action.payload._id ? action.payload : task));
+            return state.map((task) => (task._id === action.payload._id ? action.payload : task));
         case DELETE:
-            return tasks.filter((task) => task._id !== action.payload);
+            return state.filter((task) => task._id !== action.payload);
         default:
-            return tasks;
+            return state;
     }
 }

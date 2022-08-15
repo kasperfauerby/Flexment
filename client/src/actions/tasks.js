@@ -1,12 +1,24 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../constants/actionTypes.js';
+import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE } from '../constants/actionTypes.js';
 import * as api from '../api/index.js';
 
 // Action Creators
-export const getTasks = () => async (dispatch) => {
+export const getTasks = (page) => async (dispatch) => {
     try {
-        const { data } = await api.fetchTasks();
+        const { data } = await api.fetchTasks(page);
+
+        console.log(data)
 
         dispatch({ type: FETCH_ALL, payload: data });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getTasksBySearch = (searchQuery) => async (dispatch) => {
+    try {
+        const { data: { data } } = await api.fetchTasksBySearch(searchQuery);
+
+        dispatch({ type: FETCH_BY_SEARCH, payload: data });
     } catch (error) {
         console.log(error);
     }

@@ -5,10 +5,9 @@ const taskSchema = mongoose.Schema({
     taskDescription: String,
     companyName: String,
     //companyAdresse: String,
-    taskDescription: String,
     name: String,
     creator: String,
-    programmingLanguage: [String],
+    programmingLanguages: [String],
     selectedFile: String,
     likes: {
         type: [String],

@@ -28,8 +28,8 @@ const Task = ({ task, setCurrentId }) => {
     };
 
     return (
-        <Card className={classes.card}>
-            <CardMedia className={classes.media} image={task.selectedFile} title={task.title} />
+        <Card className={classes.card} raised elevation={6}>
+            <CardMedia className={classes.media} image={task.selectedFile}/>
             <div className={classes.overlay}>
                 <Typography variant="h6">{task.taskName}</Typography>
                 <Typography variant="body2">{moment(task.createdAt).fromNow()}</Typography>
@@ -42,7 +42,7 @@ const Task = ({ task, setCurrentId }) => {
                 </div>
             )}
             <div className={classes.details}>
-                <Typography variant="body2" color="textSecondary" component="h2">{task.programmingLanguage.map((programmingLanguage) => `#${programmingLanguage} `)}</Typography>
+                <Typography variant="body2" color="textSecondary" component="h2">{task.programmingLanguages.map((programmingLanguage) => `#${programmingLanguage} `)}</Typography>
             </div>
             <div className={classes.details}>
                 <Typography variant="body2" color="textSecondary" component="p">{task.taskDescription}</Typography>

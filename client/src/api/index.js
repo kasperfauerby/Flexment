@@ -10,7 +10,8 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-export const fetchTasks = () => API.get('/tasks');
+export const fetchTasks = (page) => API.get(`/tasks?page=${page}`);
+export const fetchTasksBySearch = (searchQuery) => API.get(`/tasks/search?searchQuery=${searchQuery.search || 'none'}&programmingLanguages=${searchQuery.programmingLanguages}`);
 export const createTask = (newTask) => API.post('/tasks', newTask);
 export const updateTask = (id, updatedTask) => API.patch(`/tasks/${id}`, updatedTask);
 export const deleteTask = (id) => API.delete(`/tasks/${id}`);

@@ -2,14 +2,34 @@ import mongoose from 'mongoose';
 import TaskModel from '../models/taskModel.js'
 
 export const getTasks = async (req, res) => {
+    const { page } = req.query;
+
     try {
-        const taskModels = await TaskModel.find();
+        const LIMIT = 8;
+        const startIndex = (Number(page) - 1) * LIMIT; // get starting index of every page
+        const total = await TaskModel.countDocuments({});
 
-        console.log(taskModels);
+        const tasks = await TaskModel.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
 
-        res.status(200).json(taskModels);
+        res.status(200).json({ data: tasks, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
     } catch (error) {
         res.status(404).json({ message: error.message });
+        console.log(error)
+    }
+}
+
+export const getTasksBySearch = async (req, res) => {
+    const { searchQuery, programmingLanguages } = req.query;
+
+    try {
+        const taskName = new RegExp(searchQuery, 'i');
+
+        const tasks = await TaskModel.find({ $or: [ { taskName }, { programmingLanguages: { $in: programmingLanguages.split(',') } } ]});
+
+        res.json({ data: tasks });
+    } catch (error) {
+        console.log(error)
+        res.status(404).json({ message: error.message })
     }
 }
 
