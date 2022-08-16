@@ -45,7 +45,7 @@ const TaskDetails = () => {
                     <Typography variant="h3" component="h2">{task.taskName}</Typography>
                     <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{task.programmingLanguages.map((programmingLanguage) => `#${programmingLanguage} `)}</Typography>
                     <Typography gutterBottom variant="body1" component="p">{task.taskDescription}</Typography>
-                    <Typography variant="h6">Created by: {task.name}</Typography>
+                    <Typography variant="h6">Created by: {task.taskName}</Typography>
                     <Typography variant="body1">{moment(task.createdAt).fromNow()}</Typography>
                     <Divider style={{ margin: '20px 0' }} />
                     <Typography variant="body1"><strong>Comments - coming soon!</strong></Typography>
@@ -61,7 +61,7 @@ const TaskDetails = () => {
                     <Divider />
                     <div className={classes.recommendedTasks}>
                         {recommendedTasks.map(({ taskName, companyName, likes, selectedFile, _id }) => (
-                            <div style={{ margin: '20px', cursor: 'pointer' }} MaxWidth onClick={() => openTask(_id)} key={_id}>
+                            <div style={{ margin: '20px', cursor: 'pointer' }} maxwidth="true" onClick={() => openTask(_id)} key={_id}>
                                 <Typography gutterBottom variant="h6">{taskName}</Typography>
                                 <Typography gutterBottom variant="h6">{companyName}</Typography>
                                 <Typography gutterBottom variant="h6">Likes: {likes.length}</Typography>

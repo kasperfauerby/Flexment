@@ -46,6 +46,7 @@ export default makeStyles((theme) => ({
     backgroundColor: "#069c9c"
   },
   logout: {
-    backgroundColor: "#e37b12"
+    backgroundColor: "#e37b12",
+
   }
 }));

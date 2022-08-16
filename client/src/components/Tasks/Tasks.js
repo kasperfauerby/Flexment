@@ -8,6 +8,8 @@ import useStyles from './styles';
 const Tasks = ({ setCurrentId }) => {
     const { tasks, isLoading } = useSelector((state) => state.tasks);
     const classes = useStyles();
+
+    console.log(tasks)
     
     if(!tasks.length && !isLoading) return 'No Tasks'
 
