@@ -71,7 +71,7 @@ const Home = () => {
                                 label="Søg teknologier"
                                 variant="outlined"
                             />
-                            <Button onClick={searchTask} className={classes.searchButton} variant="contained" color="primary">Søg</Button>
+                            <Button onClick={searchTask} className={classes.searchButton} variant="contained">Søg</Button>
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} /> 
                         {(!searchQuery && !programmingLanguages.length) && (

@@ -60,11 +60,10 @@ const TaskDetails = () => {
                     <Typography gutterBottom variant="h5">Lignende opgaver:</Typography>
                     <Divider />
                     <div className={classes.recommendedTasks}>
-                        {recommendedTasks.map(({ taskName, taskDescription, name, likes, selectedFile, _id }) => (
+                        {recommendedTasks.map(({ taskName, companyName, likes, selectedFile, _id }) => (
                             <div style={{ margin: '20px', cursor: 'pointer' }} MaxWidth onClick={() => openTask(_id)} key={_id}>
                                 <Typography gutterBottom variant="h6">{taskName}</Typography>
-                                <Typography gutterBottom variant="h6">{name}</Typography>
-                                <Typography gutterBottom variant="h6">{taskDescription}</Typography>
+                                <Typography gutterBottom variant="h6">{companyName}</Typography>
                                 <Typography gutterBottom variant="h6">Likes: {likes.length}</Typography>
                                 <img src={selectedFile} width="200px" />
                             </div>

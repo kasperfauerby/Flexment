@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +21,8 @@
     "mongoose": "^6.5.1",
     "nodemon": "^2.0.19"
   },
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "jest": "^28.1.3"
+  }
 }

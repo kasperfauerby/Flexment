@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { deepPurple } from '@material-ui/core/colors';
+import { LOGOUT } from '../../constants/actionTypes';
 
 export default makeStyles((theme) => ({
   appBar: {
@@ -16,7 +17,8 @@ export default makeStyles((theme) => ({
     textDecoration: 'none',
   },
   image: {
-    marginLeft: '15px',
+    marginLeft: '50px',
+    marginTop: '5px',
   },
   toolbar: {
     display: 'flex',
@@ -37,7 +39,13 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
   },
   purple: {
-    color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: deepPurple[500],
+    color: "#e37b12",
+    backgroundColor: "#069c9c",
   },
+  login: {
+    backgroundColor: "#069c9c"
+  },
+  logout: {
+    backgroundColor: "#e37b12"
+  }
 }));
